@@ -1,0 +1,36 @@
+@mixin clearfix {
+    &::after{
+        content: "";
+        display:table;
+        clear: both;
+    }    
+}
+
+$gutter_vertical: 10px;
+$gutter_horizontal: 10px;
+
+.row{
+    max-width: 1200px;
+    margin: 0 auto;
+    &:not(:last-child){
+        margin-bottom: $gutter_vertical;
+    }
+    @include clearfix;
+    [class^='col-']{
+        float: left;
+        &:not(:last-child){
+            margin-right: $gutter_horizontal;
+        }
+    }
+    @for $i from 1 through 12{
+        @for $j from 1 through $i{
+            $maximum-width: (($j*100)/$i)+"%";
+            $extra_gutter: ($i)-($j);
+            $error_gutter_space: ($extra_gutter * $gutter_horizontal);
+            .col-#{$j}-of-#{$i}{
+                width: calc(#{$maximum_width} - #{$error_gutter_space});
+            }
+        }
+    }
+
+}
