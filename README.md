@@ -10,11 +10,11 @@ Divisions Used=>
 Gutter Vertical => 15px
 Padding inside a col => 4px , 8px, 16px , 24px
 
-Usage => *. "<div class="row">
+Usage => *. `<div class="row">
 		<div class="col1s">
 		</div>
-	   </div>"
-	*. Col names are col1xs , col3m, col12m (For 100%width), col10l etc... 
+	   </div>`
+	*. Col names are col1xs , col3m, col12m (For 100%width), col10l etc...<br> 
 <b>Note: Each Col Must be used Inside Row class (max-width:1140px) </b>
 
 
