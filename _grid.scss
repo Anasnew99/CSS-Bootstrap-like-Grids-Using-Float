@@ -1,3 +1,15 @@
+$grid_max_width: 1140px;
+$gutter_vertical: 15px;
+@mixin makeCol($maximum_width,$padding,$gutter_vertical) {
+    width: #{$maximum_width};
+    padding: $padding;
+    margin-bottom: 0;
+    @if (#{$maximum_width} == 100%){
+        &:not(:last-child){
+            margin-bottom: $gutter_vertical;
+        }
+    }  
+}
 @mixin clearfix {
     &::after{
         content: "";
@@ -5,30 +17,45 @@
         clear: both;
     }    
 }
-
-$gutter_vertical: 10px;
-$gutter_horizontal: 10px;
-
+// Grid System
 .row{
-    max-width: 1200px;
-    margin: 0 auto;
+    max-width: $grid_max_width;
     &:not(:last-child){
         margin-bottom: $gutter_vertical;
     }
     @include clearfix;
-    [class^='col-']{
+    [class^='col']{
         float: left;
-        &:not(:last-child){
-            margin-right: $gutter_horizontal;
+    }
+    @for $i from 1 through 12{
+        $maximum-width: ((100)/12) * $i +"%";
+        .col#{$i}xs{ // First Breakpoint xs: => 300px;
+            @media (min-width:18.75em){
+                @include makeCol( $maximum-width , 4px,$gutter_vertical)
+            }
+        }            
+    }
+    @for $i from 1 through 12{
+        $maximum-width: ((100)/12) * $i +"%";
+        .col#{$i}s{ // Second Breakpoint s=> 600px;
+            @media (min-width:37.5em){
+                @include makeCol( $maximum-width ,8px,$gutter_vertical)
+            }
         }
     }
     @for $i from 1 through 12{
-        @for $j from 1 through $i{
-            $maximum-width: (($j*100)/$i)+"%";
-            $extra_gutter: ($i)-($j);
-            $error_gutter_space: ($extra_gutter * $gutter_horizontal);
-            .col-#{$j}-of-#{$i}{
-                width: calc(#{$maximum_width} - #{$error_gutter_space});
+        $maximum-width: ((100)/12) * $i +"%";
+        .col#{$i}m{
+            @media (min-width:56.25em){  // Third Breakpoint m=> 900px; 
+                @include makeCol( $maximum-width ,16px,$gutter_vertical)
+            } 
+        }
+    }
+    @for $i from 1 through 12{
+        $maximum-width: ((100)/12) * $i +"%";
+        .col#{$i}l{
+            @media (min-width:75em){ // Fourth Breakpoint l=> 1200px;
+                @include makeCol($maximum-width , 24px,$gutter_vertical)    
             }
         }
     }
